@@ -21,12 +21,12 @@ def printTable(L):
 		colsizes.append(biggest)
 
 	#prints lists using rjust
-	for x in range(0, numItems):
-		for y in range(0, numLists):
-			if y < numLists-1:
-				print(L[y][x].rjust(colsizes[y]), end=' ')
+	for y in range(0, numItems):
+		for x in range(0, numLists):
+			if x < numLists-1:
+				print(L[x][y].rjust(colsizes[x]), end=' ')
 			else:
-				print(L[y][x].rjust(colsizes[y]), end='\n')
+				print(L[x][y].rjust(colsizes[x]), end='\n')
 
 #main function stuff
 #if __name__ == '__main__':
@@ -34,6 +34,6 @@ tableData = [['apples', 'oranges', 'cherries', 'banana'],
 			 ['Alice', 'Bob', 'Carol', 'David'],
 			 ['dogs', 'cats', 'moose', 'goose']]
 printTable(tableData)
-#testList = []
-#printTable(testList)
+testList = []
+printTable(testList)
 exit()

@@ -36,10 +36,16 @@ def mad_libs(inputname, outputname):
 			word_list[x] = word_list[x].replace('VERB', input('Enter a verb: '))
 
 		#writes to output file
-		if(x == list_length-1):
-			ofile.write(word_list[x])
-		else:
+		if(x < list_length-1):
 			ofile.write(word_list[x] + ' ')
+
+		else:
+			ofile.write(word_list[x])
+
+	#print new stuff
+	ofile.close()
+	ofile = open(outputname)
+	print('\n' + ofile.read())
 
 	#closes input and output
 	ifile.close()
