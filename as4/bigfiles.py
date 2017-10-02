@@ -12,7 +12,7 @@ def bigfiles(basepth):
 	# then returns a list of those files
 	for root, dirs, files in os.walk(basepth):
 		for name in files:
-			if root == basepth:
+			if root.endswith('/'):
 				fpath = root + name
 			else:
 				fpath = root + '/' + name
@@ -22,6 +22,6 @@ def bigfiles(basepth):
 	return flist
 
 # main funtion to test it out, i had a temp dir in the same dir as bigfiles.py
-flist = bigfiles('temp/')
+flist = bigfiles('temp')
 for name in flist:
 	print(name)
