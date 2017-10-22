@@ -21,6 +21,7 @@ def bigfiles(basepth):
 	return flist
 
 #main funtion to test it out, i had a temp dir in the same dir as bigfiles.py
-flist = bigfiles('temp/')
-for name in flist:
-	print(name)
+if __name__ == '__main__':
+	flist = bigfiles('temp')
+	for name in flist:
+		print(name)
