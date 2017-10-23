@@ -17,7 +17,7 @@ class Point(object):
 
 class Ellipse(object):
 
-	def __init__(self, center, x, y):
+	def __init__(self, center, x=0.0, y=0.0):
 		self.center = center
 		self.x_extent = float(x)
 		self.y_extent = float(y)
@@ -31,14 +31,37 @@ class Ellipse(object):
 	def get_area(self):
 		return pi*(self.x_extent**2 + self.y_extent**2)
 
-pa = Point(5, 5)
-pb = Point(8, 2)
-pa.translate(-4.0,-4.0)
-print('Distance = {0:.1f}'.format(pa.dist(pb)))
-print(pa)
-print('{0:.1f}'.format(pa.x))
+def getEllipse():
+	x = float(input('Enter Ellipse Center X Point: '))
+	y = float(input('Enter Ellipse Center Y Point: '))
+	xe = float(input('Enter Ellipse X Extent: '))
+	ye = float(input('Enter Ellipse Y Extent: '))
+	return Ellipse(Point(x,y), xe, ye)
 
-P = Point(1.0, 3.0)
-E = Ellipse(P, 2.3, 1.2)
-print(E)
-print(E.get_area())
+class Circle(Ellipse):
+
+	def __str__(self):
+		return 'Circle with Center: {0}; Radius: {1:.1f};'.format(self.center, self.x_extent)
+
+	def contains(self, other):
+		d = ((self.center.x - other.center.x)**2 + (self.center.y - other.center.y)**2)**(1/2)
+		if other.x_extent + d < self.x_extent:
+			return True
+		else:
+			return False
+
+def getCircle():
+	x = float(input('Enter Circle Center X Point: '))
+	y = float(input('Enter Circle Center Y Point: '))
+	r = float(input('Enter Circle Radius: '))
+	return Circle(Point(x,y), r)
+
+if __name__ == "__main__":
+	circle1 = getCircle()
+	circle2 = getCircle()
+	print(circle1)
+	print(circle2)
+	print('cirlce 1 area = %.1f' % circle1.get_area())
+	print('cirlce 2 area = %.1f' % circle2.get_area())
+	print(circle1.contains(circle2))
+	print(circle2.contains(circle1))
