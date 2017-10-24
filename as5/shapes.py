@@ -48,7 +48,7 @@ class Circle(Ellipse):
         return 'Circle with Center: {0}; Radius: {1:.1f};'.format(self.center, self.x_extent)
 
     def contains(self, other):
-        d = ((self.center.x - other.center.x)**2 + (self.center.y - other.center.y)**2)**(1/2)
+        d = self.center.dist(other.center)
         if other.x_extent + d < self.x_extent:
             return True
         else:
