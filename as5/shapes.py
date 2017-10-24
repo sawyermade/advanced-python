@@ -41,6 +41,9 @@ def getEllipse():
 
 class Circle(Ellipse):
 
+    def __init__(self, center, r=0.0):
+        Ellipse.__init__(self, center, r)
+
     def __str__(self):
         return 'Circle with Center: {0}; Radius: {1:.1f};'.format(self.center, self.x_extent)
 
