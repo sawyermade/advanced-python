@@ -30,7 +30,7 @@ class Ellipse(object):
         self.center.translate(dx, dy)
 
     def get_area(self):
-        return pi*(self.x_extent**2 + self.y_extent**2)
+        return pi*(self.x_extent * self.y_extent)
 
 def getEllipse():
     x = float(input('Enter Ellipse Center X Point: '))
@@ -42,7 +42,7 @@ def getEllipse():
 class Circle(Ellipse):
 
     def __init__(self, center, r=0.0):
-        Ellipse.__init__(self, center, r)
+        Ellipse.__init__(self, center, r, r)
 
     def __str__(self):
         return 'Circle with Center: {0}; Radius: {1:.1f};'.format(self.center, self.x_extent)
