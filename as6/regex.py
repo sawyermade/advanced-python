@@ -9,7 +9,7 @@ class InvalidFractionExpression(Exception):
     pass
 
 def strong_pwd(pwd_string):
-    restr = r'(?=\w*[a-z]\w*)(?=\w*[A-Z]\w*)(?=\w*\d\w*)\w{8,}'
+    restr = r'^(?=\w*[a-z]\w*)(?=\w*[A-Z]\w*)(?=\w*\d\w*)\w{8,}$'
     p = re.compile(restr)
 
     try:
@@ -26,6 +26,7 @@ def clear_whitespace(s):
 def extract_from_equation(s):
     pass # replace this with the real code
 
-passwd = '841D'
+passwd = '8419Ddss'
+print(strong_pwd(passwd))
 s = 'This Is As Good As It Gets '
 print(clear_whitespace(s))
