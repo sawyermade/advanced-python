@@ -9,7 +9,7 @@ class InvalidFractionExpression(Exception):
     pass
 
 def strong_pwd(pwd_string):
-    restr = r'^(?=\w*[a-z]\w*)(?=\w*[A-Z]\w*)(?=\w*\d\w*)\w{8,}$'
+    restr = r'^(?=[a-zA-Z0-9]*[a-z][a-zA-Z0-9]*)(?=[a-zA-Z0-9]*[A-Z][a-zA-Z0-9]*)(?=[a-zA-Z0-9]*[0-9][a-zA-Z0-9]*)[a-zA-Z0-9]{8,}$'
     p = re.compile(restr)
 
     try:
@@ -19,14 +19,18 @@ def strong_pwd(pwd_string):
     	raise BadPasswordCharacter(e)
 
 def clear_whitespace(s):
-    p = re.compile(r'[ ]*')
+    p = re.compile(r'\s')
     return p.sub('', s)
 
-
 def extract_from_equation(s):
-    pass # replace this with the real code
+    strip = clear_whitespace(s)
+    restr = r'^(-?[0-9]+)/(-?[0-9]+)([+\-*/])(-?[0-9]+)/(-?[0-9]+)$'
+    p = re.compile(restr)
+    return p.findall(strip)
 
-passwd = '8419Ddss'
+passwd = '8419DDSs'
 print(strong_pwd(passwd))
 s = 'This Is As Good As It Gets '
 print(clear_whitespace(s))
+e = '  -30/-534 * 20/40 '
+print(extract_from_equation(e))
