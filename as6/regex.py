@@ -12,11 +12,11 @@ def strong_pwd(pwd_string):
     restr = r'^(?=[a-zA-Z0-9]*[a-z][a-zA-Z0-9]*)(?=[a-zA-Z0-9]*[A-Z][a-zA-Z0-9]*)(?=[a-zA-Z0-9]*[0-9][a-zA-Z0-9]*)[a-zA-Z0-9]{8,}$'
     p = re.compile(restr)
 
-    try:
-    	bval = p.match(pwd_string)
-    	return bval
-    except Exception as e:
-    	raise BadPasswordCharacter(e)
+    if p.match(pwd_string):
+        return True
+        
+    else:
+        raise BadPasswordCharacter('Password Not Strong Enough.')
 
 def clear_whitespace(s):
     p = re.compile(r'\s')
@@ -24,13 +24,36 @@ def clear_whitespace(s):
 
 def extract_from_equation(s):
     strip = clear_whitespace(s)
-    restr = r'^(-?[0-9]+)/(-?[0-9]+)([+\-*/])(-?[0-9]+)/(-?[0-9]+)$'
+    restr = r'^(-?[0-9]+)/([0-9]+)([+\-*/])(-?[0-9]+)/([0-9]+)$'
     p = re.compile(restr)
-    return p.findall(strip)
 
-passwd = '8419DDSs'
-print(strong_pwd(passwd))
-s = 'This Is As Good As It Gets '
-print(clear_whitespace(s))
-e = '  -30/-534 * 20/40 '
-print(extract_from_equation(e))
+    if p.match(strip):
+        return p.findall(strip)
+    else:
+        raise InvalidFractionExpression('Fraction Expression is Invalid.')
+
+if __name__ == '__main__':
+    passwd = '1984DDs!'
+    try:
+        strong_pwd(passwd)
+        print('Password is Strong')
+    except BadPasswordCharacter as e:
+        print(e)
+    passwd = '1984DDss'
+    try:
+        strong_pwd(passwd)
+        print('Password is Strong')
+    except BadPasswordCharacter as e:
+        print(e)
+
+    s = 'This Is As Good As It Gets '
+    print(clear_whitespace(s))
+
+    e = '  -30/534 * 20/40 '
+    print(extract_from_equation(e))
+
+    e = ' -30/500 + 1'
+    try:
+        print(extract_from_equation(e))
+    except InvalidFractionExpression as e:
+        print(e)
