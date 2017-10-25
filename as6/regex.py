@@ -13,8 +13,7 @@ def strong_pwd(pwd_string):
     p = re.compile(restr)
 
     if p.match(pwd_string):
-        return True
-        
+        return True  
     else:
         raise BadPasswordCharacter('Password Not Strong Enough.')
 
@@ -36,7 +35,7 @@ if __name__ == '__main__':
     passwd = '1984DDs!'
     try:
         strong_pwd(passwd)
-        print('Password is Strong')
+        print('Password is Strong Enough')
     except BadPasswordCharacter as e:
         print(e)
     passwd = '1984DDss'
