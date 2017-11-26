@@ -2,6 +2,53 @@ import pickle
 
 class Transaction(object):
 	
+	'''
+	>>> T = Transaction(99, '11-20-17')
+	
+	>>> print(T.amount)
+	99
+	
+	>>> print(T.date)
+	11-20-17
+	
+	>>> print(T.currency)
+	USD
+	
+	>>> print(T.usd_conversion_rate)
+	1
+	
+	>>> print(T.description)
+	None
+
+	>>> print(T.usd)
+	99
+	
+	>>> T.amount = 69
+	Traceback (most recent call last):
+		...
+	AttributeError: can't set attribute
+	
+	>>> T.date = '11-11-11'
+	Traceback (most recent call last):
+		...
+	AttributeError: can't set attribute
+	
+	>>> T.currency = 'CAD'
+	Traceback (most recent call last):
+		...
+	AttributeError: can't set attribute
+
+	>>> T.usd = 100
+	Traceback (most recent call last):
+		...
+	AttributeError: can't set attribute
+
+	>>> T.usd_conversion_rate = 2
+	Traceback (most recent call last):
+		...
+	AttributeError: can't set attribute
+	'''
+
 	def __init__(self, amount, date, currency='USD', usd_conversion_rate=1, description=None):
 		self.__amount = amount
 		self.__date = date
@@ -37,6 +84,67 @@ class Transaction(object):
 
 class Account(object):
 	
+	'''
+	>>> trans = Transaction(99, 11-20-17)
+
+	>>> translist = [Transaction(100, 11-21-17), Transaction(200, 11-22-17), Transaction(300, 11-23-17, 'USD')]
+
+	>>> ac1 = Account(123, 'dan', translist)
+	Traceback (most recent call last):
+		...
+	ValueError: Account name must be at least 4 characters long.
+
+	>>> ac1 = Account(123, 'daniel', translist)
+
+	>>> print(ac1.account_name)
+	daniel
+	
+	>>> print(len(ac1))
+	3
+
+	>>> print(ac1.balance)
+	600
+
+	>>> print(ac1.all_usd)
+	True
+
+	>>> ac1.apply(trans)
+
+	>>> print(len(ac1))
+	4
+
+	>>> ac1.save()
+
+	>>> trans2 = Transaction(69, 6-1-84)
+
+	>>> ac1.apply(trans2)
+
+	>>> print(len(ac1))
+	5
+
+	>>> ac1.load()
+
+	>>> print(len(ac1))
+	4
+
+	>>> ac2 = Account(321, 'robby', translist)
+
+	>>> ac2.load(123)
+	Cannot load 123.acc, account numbers do not match
+
+	>>> ac2.account_name = 'robby new'
+
+	>>> ac2.account_name = 'rob'
+	Traceback (most recent call last):
+		...
+	ValueError: Account name must be at least 4 characters long.
+
+	>>> ac2.account_number = 69
+	Traceback (most recent call last):
+		...
+	AttributeError: can't set attribute
+	'''
+
 	def __init__(self, account_number, account_name, transactions):
 		self.__account_number = account_number
 		self.account_name = account_name
@@ -70,7 +178,7 @@ class Account(object):
 	@property
 	def all_usd(self):
 		for x in self.__transactions:
-			if(x.currency is not 'USD'):
+			if x.currency is not 'USD':
 				return False	
 		return True
 
@@ -112,26 +220,5 @@ class Account(object):
 			
 
 if __name__ == '__main__':
-	#import doctest
-	#doctest.testmod()
-	trans = Transaction(99, 11-20-17)
-	print(trans.amount)
-
-	translist = [Transaction(100, 11-21-17), Transaction(200, 11-22-17), Transaction(300, 11-23-17, 'USD')]
-	ac1 = Account(123, 'daniel', translist)
-	print(ac1.account_name)
-	#ac2 = Account(321, 'dan', translist)
-	print(len(ac1))
-	print(ac1.balance)
-	print(ac1.all_usd)
-	ac1.apply(trans)
-	print(len(ac1))
-
-	ac1.save()
-	trans2 = Transaction(69, 6-1-84)
-	ac1.apply(trans2)
-	print('\nafter apply ' + str(len(ac1)))
-	ac1.load()
-	print('\nafter load ' + str(len(ac1)))
-	ac2 = Account(321, 'robby', translist)
-	ac2.load(123)
+	import doctest
+	doctest.testmod()
