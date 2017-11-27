@@ -27,7 +27,7 @@ def extract_from_equation(s):
     p = re.compile(restr)
 
     if p.match(strip):
-        return p.findall(strip)
+        return p.findall(strip)[0]
     else:
         raise InvalidFractionExpression('Fraction Expression is Invalid.')
 
