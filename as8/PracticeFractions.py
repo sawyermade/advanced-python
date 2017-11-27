@@ -121,7 +121,7 @@ def quizzer():
 
 		#prints result window. correct, partially correct not reduced, wrong
 		if answer == str(result):
-			choice = eg.buttonbox('Congradulations, Your Answer Was Correct!', 'Quizzer Results', ['Continue', 'Return'])
+			choice = eg.buttonbox('Congradulations, Your Answer Was Correct!', 'Quizzer Results', ['Another Quiz', 'Return'])
 			if choice == 'Return':
 				flag = False
 
