@@ -77,6 +77,7 @@ def regCheckAnswer(s):
 		return True
 	else:
 		return False
+
 #quizzer shit
 def quizzer():
 	flag = True
@@ -137,16 +138,17 @@ def quizzer():
 #main shit
 if __name__ == '__main__':
 	
+	#sets up main buttonbox stuff
 	msgIntro = 'Welcome To Practice Fractions'
 	titleIntro = 'Practice Fractions'
 	choicesIntro = ['Solver', 'Quizzer', 'Quit']
 	flag = True
 
+	#runs until they select quit
 	while flag:
 		choiceIntro = eg.buttonbox(msgIntro, titleIntro, choicesIntro)
-		#print(choiceIntro)
+		
 		if choiceIntro == 'Quit':
-			# print('Quitting')
 			flag = False
 
 		if choiceIntro == 'Solver':
@@ -155,7 +157,7 @@ if __name__ == '__main__':
 		if choiceIntro == 'Quizzer':
 			quizzer()
 
-	#testing shit
+	# #testing shit
 	# f1 = Fraction('3/4')
 	# print(f1)
 	# f1 = Fraction(-3, 2)
