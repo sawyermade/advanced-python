@@ -1,4 +1,4 @@
-import easygui as eg, re, operator
+import easygui as eg, re, operator, random
 from fractions import Fraction
 
 #clears whitespace from a string
@@ -42,27 +42,75 @@ def fracMath(fraclist):
 def solver():
 	flag = True
 	while flag:
-		fracstr = eg.enterbox()
+		fracstr = eg.enterbox('Enter Fraction Expression', 'Solver Enter Fraction')
+		if fracstr == None:
+			return None
 		fracexprs = regCheck(fracstr)
 
-		if fracexprs is not None:
+		if fracexprs is not None :
 			fraclist = createFraction(fracexprs)
 			fracresult = fracMath(fraclist)
+			question = str(fraclist[0]) + ' ' + fraclist[1] + ' ' + str(fraclist[2]) + ' = '
+			answer = str(fracresult)
 			# print(fracresult)
 			choices = ['Solve Another', 'Return']
-			choice = eg.buttonbox(str(fracresult), 'Solver Result', choices)
+			choice = eg.buttonbox(question + answer, 'Solver Result', choices)
 			if choice == 'Return':
 				flag = False
 
 		else:
 			choices = ['Try Again', 'Return']
-			choice = eg.buttonbox('You Have Entered An Invalid Fraction Expression', 'Solver Error', choices)
+			choice = eg.buttonbox('You Have Entered An Invalid Fraction Expression', 'Solver Fraction Error', choices)
 			if choice == 'Return':
 				flag = False
 
+#reg check for quizzer answer
+def regCheckAnswer(s):
+	regex = r'^(-?[0-9]+)(/[1-9][0-9]*)?$'
+	p = re.compile(regex)
+	cldws = clear_whitespace(s)
+
+	if p.match(cldws):
+		# print('{0} is a match'.format(cldws))
+		return p.findall(cldws)
+	else:
+		return None
 #quizzer shit
 def quizzer():
-	pass
+	flag = True
+	opfunc = {'+':operator.add, '-':operator.sub, '*':operator.mul}
+	while flag:
+		op = eg.buttonbox('Please Choose An Operator', 'Quizzer Operator Select', ['+', '-', '*'])
+		num1 = random.randint(-15, 15)
+		num2 = random.randint(-15, 15)
+		den1 = random.randint(1, 15)
+		den2 = random.randint(1, 15)
+		f1 = Fraction(num1, den1)
+		f2 = Fraction(num2, den2)
+		result = opfunc[op](f1, f2)
+		question = str(f1) + ' ' + op + ' ' + str(f2) + ' = '
+		answer = eg.enterbox(question, 'Quizzer Question')
+		ansRegCheck = regCheckAnswer(answer)
+		while not ansRegCheck:
+			eg.buttonbox('You Did Not Enter A Valid Fraction Expression', 'Error Invalid Fraction', ['OK'])
+			answer = eg.enterbox(question, 'Quizzer Question')
+			ansRegCheck = regCheckAnswer(answer)
+		answer = clear_whitespace(answer)
+
+		if answer == str(result):
+			choice = eg.buttonbox('Congradulations, Your Answer Was Correct!', 'Quizzer Results', ['Continue', 'Return'])
+			if choice == 'Return':
+				flag = False
+
+		elif str(Fraction(answer)) == str(result):
+			choice = eg.buttonbox('Your Answer Was Correct But Not Reduced\nCorrect Answer: {0}{1}'.format(question, str(result)), 'Quizzer Results', ['Another Quiz', 'Return'])
+			if choice == 'Return':
+				flag = False
+
+		else:
+			choice = eg.buttonbox('Your Answer Was Not Correct\nCorrect Answer: {0}{1}'.format(question, str(result)), 'Quizzer Results', ['Another Quiz', 'Return'])
+			if choice == 'Return':
+				flag = False
 
 #main shit
 if __name__ == '__main__':

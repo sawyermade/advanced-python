@@ -14,3 +14,6 @@ if __name__ == '__main__':
 
 	if choice == 'Rocky Road':
 		eg.msgbox('Yes, Rocky Road is the best')
+
+	msg = 'Enter Answer and select operator'
+	choices = ['+', '-', '*']
